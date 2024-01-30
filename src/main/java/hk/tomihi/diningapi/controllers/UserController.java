@@ -1,6 +1,7 @@
 package hk.tomihi.diningapi.controllers;
 
 
+import hk.tomihi.diningapi.dto.UserDTO;
 import hk.tomihi.diningapi.model.User;
 import hk.tomihi.diningapi.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -28,15 +30,17 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> authenticateUser(@RequestBody User user) {
+    public ResponseEntity<String> authenticateUser(@RequestBody UserDTO user) {
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPasswordHash()));
+                .authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return new ResponseEntity<>("User login successfully!", HttpStatus.OK);
     }
 
     @PostMapping("/register")
-    public User registerUser(@RequestBody User user) {
+    public User registerUser(@RequestBody UserDTO userDTO) throws NoSuchAlgorithmException {
+        System.out.println("registerUser");
+        User user = new User(userDTO.getUsername(), userDTO.getPassword());
         return userRepository.save(user);
     }
 
