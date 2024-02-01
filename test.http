@@ -1,5 +1,5 @@
 ### Test get restaurants
-#GET localhost:3001/restaurant
+GET localhost:3001/restaurant
 
 ### Test register
 POST localhost:3001/user/register
@@ -11,3 +11,19 @@ Content-Type: application/json
 }
 
 ###
+
+POST localhost:3001/user/login
+Content-Type: application/json
+
+{
+  "username": "tomihi",
+  "password": "test"
+}
+
+
+###
+
+GET localhost:3001/user/profile
+
+
+
