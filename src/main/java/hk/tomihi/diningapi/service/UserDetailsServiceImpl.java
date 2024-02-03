@@ -1,4 +1,4 @@
-package hk.tomihi.diningapi;
+package hk.tomihi.diningapi.service;
 
 import hk.tomihi.diningapi.model.User;
 import hk.tomihi.diningapi.repositories.AdminRepository;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -28,14 +29,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         boolean is_admin = adminRepository.existsAdminByUser(user);
 
         List<SimpleGrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority("USER"));
+        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
 
         if (is_admin)
-            roles.add(new SimpleGrantedAuthority("ADMIN"));
+            roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+
+        System.out.println(username + roles.toString());
 
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
-                user.getPasswordHash(),
+                user.getPassword(),
                 roles
         );
     }

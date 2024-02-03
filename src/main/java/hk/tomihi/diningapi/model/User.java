@@ -22,8 +22,8 @@ public class User {
     private String username;
 
     @Setter
-    @Column(name = "PASSWORD_HASH", nullable = false)
-    private String passwordHash;
+    @Column(name = "PASSWORD", nullable = false)
+    private String password;
 
     @Setter
     @Column(name = "BIO", nullable = true)
@@ -35,13 +35,13 @@ public class User {
 
     public User(String username, String password) throws NoSuchAlgorithmException {
         this.username = username;
-        this.passwordHash = PasswordHashed.hashPassword(password);
+        this.password = PasswordHashed.hashPassword(password);
     }
 
-    public User(Long id, String username, String passwordHash, String bio) {
+    public User(Long id, String username, String password, String bio) {
         this.id = id;
         this.username = username;
-        this.passwordHash = passwordHash;
+        this.password = password;
         this.bio = bio;
     }
 }

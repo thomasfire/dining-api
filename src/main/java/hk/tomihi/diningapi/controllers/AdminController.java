@@ -38,7 +38,7 @@ public class AdminController {
     }
 
     @PostMapping("/restaurant/add")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Restaurant addRestaurant(@RequestParam Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
     }

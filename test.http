@@ -10,7 +10,7 @@ Content-Type: application/json
   "password": "test"
 }
 
-###
+### Test login
 
 POST localhost:3001/user/login
 Content-Type: application/json
@@ -21,9 +21,13 @@ Content-Type: application/json
 }
 
 
-###
+### Test get profile
 
 GET localhost:3001/user/profile
+Authorization: Basic tomihi test
 
 
+### Test get admin
 
+GET localhost:3001/admin
+Authorization: Basic tomihi test

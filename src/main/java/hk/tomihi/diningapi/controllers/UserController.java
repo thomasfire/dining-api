@@ -4,6 +4,7 @@ package hk.tomihi.diningapi.controllers;
 import hk.tomihi.diningapi.dto.UserDTO;
 import hk.tomihi.diningapi.model.User;
 import hk.tomihi.diningapi.repositories.UserRepository;
+import org.apache.catalina.Authenticator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,8 +46,9 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    @PreAuthorize("hasRole('USER')")
+    //@PreAuthorize("hasRole('ROLE_USER')")
     public Optional<User> getUserProfile(Principal principal) {
+        System.out.println(principal.getName());
         return userRepository.findByUsername(principal.getName());
     }
 }
