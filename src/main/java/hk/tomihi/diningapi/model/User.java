@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
@@ -14,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 @Table(name = "USERS")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
 
     @Setter
@@ -26,7 +24,7 @@ public class User {
     private String password;
 
     @Setter
-    @Column(name = "BIO", nullable = true)
+    @Column(name = "BIO")
     private String bio;
 
     public User() {
@@ -38,10 +36,4 @@ public class User {
         this.password = PasswordHashed.hashPassword(password);
     }
 
-    public User(Long id, String username, String password, String bio) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.bio = bio;
-    }
 }

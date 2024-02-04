@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -31,27 +31,27 @@ public class Review {
     private String review;
 
     @Setter
-    @Column(name = "SCORE", nullable = true)
+    @Column(name = "SCORE")
     @Enumerated(EnumType.ORDINAL)
     private Score score;
 
     @Setter
-    @Column(name = "ATMOSPHERE", nullable = true)
+    @Column(name = "ATMOSPHERE")
     @Enumerated(EnumType.ORDINAL)
     private Score atmosphereScore;
 
     @Setter
-    @Column(name = "FOOD", nullable = true)
+    @Column(name = "FOOD")
     @Enumerated(EnumType.ORDINAL)
     private Score foodScore;
 
     @Setter
     @Column(name = "POSTED", nullable = false, updatable = false)
-    private Date postDate;
+    private Timestamp postDate;
 
     @Setter
-    @Column(name = "APPROVED", nullable = true)
-    private Date approvedDate;
+    @Column(name = "APPROVED")
+    private Timestamp approvedDate;
 
     public Review(User user, Restaurant restaurant, String review, Score score, Score atmosphereScore, Score foodScore) {
         this.user = user;
@@ -60,7 +60,7 @@ public class Review {
         this.score = score;
         this.atmosphereScore = atmosphereScore;
         this.foodScore = foodScore;
-        this.postDate = Date.valueOf(LocalDate.now());
+        this.postDate = Timestamp.valueOf(LocalDateTime.now());
     }
 
     public Review() {

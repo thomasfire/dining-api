@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -33,8 +32,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         if (is_admin)
             roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-
-        System.out.println(username + roles.toString());
 
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),

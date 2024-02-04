@@ -10,4 +10,5 @@ public class DiningApiApplication {
 		SpringApplication.run(DiningApiApplication.class, args);
 	}
 
+
 }

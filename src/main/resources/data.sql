@@ -31,6 +31,9 @@ create table users (
                        primary key (id)
 );*/
 
-INSERT INTO restaurant (id, description, title) VALUES ( 1, 'Best in Town', 'Aboba') ;
-INSERT INTO USERS (id, bio, password, username) VALUES ( 1, null, '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 'tomihi' );
-INSERT INTO ADMINS (id, user_id) VALUES ( 1, 1 );
+INSERT INTO restaurant (id, description, title) VALUES ( 0, 'Best in Town', 'Aboba Rest') ;
+INSERT INTO restaurant (id, description, title) VALUES ( 1, 'So-So, but ok', 'OK Lah') ;
+INSERT INTO USERS (id, bio, password, username) VALUES (0, null, '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 'tomihi' );
+INSERT INTO ADMINS (id, user_id) VALUES ( 0, 0 );
+INSERT INTO reviews (approved, atmosphere, food, posted, score, id, restaurant_id, user_id, review) VALUES ( null, 0, 0, now(), 1, 0, 1, 0, 'really so-so' );
+

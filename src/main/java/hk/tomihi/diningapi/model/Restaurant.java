@@ -9,27 +9,16 @@ import lombok.Setter;
 @Table(name = "RESTAURANT")
 public class Restaurant {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
 
     @Setter
-    @Column(name = "TITLE", nullable = false)
+    @Column(name = "TITLE", nullable = false, unique = true)
     private String title;
 
     @Setter
-    @Column(name = "DESCRIPTION", nullable = true)
+    @Column(name = "DESCRIPTION")
     private String description;
-
-    public Restaurant(String title, String description) {
-        this.title = title;
-        this.description = description;
-    }
-
-    public Restaurant(Long id, String title, String description) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-    }
 
     public Restaurant() {
     }

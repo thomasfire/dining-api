@@ -1,5 +1,6 @@
 package hk.tomihi.diningapi.controllers;
 
+import hk.tomihi.diningapi.dto.AdminReviewDTO;
 import hk.tomihi.diningapi.model.Restaurant;
 import hk.tomihi.diningapi.model.Review;
 import hk.tomihi.diningapi.repositories.RestaurantRepository;
@@ -8,8 +9,8 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/admin")
@@ -25,21 +26,21 @@ public class AdminController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public Iterable<Review> getPendingReviews() {
-        return reviewRepository.findAllByApprovedDateNullOrderByPostDateAsc();
+    public Iterable<AdminReviewDTO> getPendingReviews() {
+        return reviewRepository.findAllByApprovedDateNullOrderByPostDateAsc().stream().map(AdminReviewDTO::new).toList();
     }
 
     @PutMapping("/approve/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public Review approveReview(@PathVariable Long id) throws ChangeSetPersister.NotFoundException {
+    public AdminReviewDTO approveReview(@PathVariable Long id) throws ChangeSetPersister.NotFoundException {
         Review review = reviewRepository.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
-        review.setApprovedDate(Date.valueOf(LocalDate.now()));
-        return reviewRepository.save(review);
+        review.setApprovedDate(Timestamp.valueOf(LocalDateTime.now()));
+        return new AdminReviewDTO(reviewRepository.save(review));
     }
 
     @PostMapping("/restaurant/add")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Restaurant addRestaurant(@RequestParam Restaurant restaurant) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public Restaurant addRestaurant(@RequestBody Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
     }
 }

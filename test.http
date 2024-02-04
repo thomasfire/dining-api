@@ -6,28 +6,77 @@ POST localhost:3001/user/register
 Content-Type: application/json
 
 {
-  "username": "tomihi",
-  "password": "test"
-}
-
-### Test login
-
-POST localhost:3001/user/login
-Content-Type: application/json
-
-{
-  "username": "tomihi",
-  "password": "test"
+  "username": "user",
+  "password": "aboba"
 }
 
 
-### Test get profile
+### Test get profile tomihi
 
 GET localhost:3001/user/profile
 Authorization: Basic tomihi test
 
 
-### Test get admin
+### Test get profile user
+
+GET localhost:3001/user/profile
+Authorization: Basic user aboba
+
+
+### Test get admin tomihi
 
 GET localhost:3001/admin
 Authorization: Basic tomihi test
+
+### Test get admin user
+
+GET localhost:3001/admin
+Authorization: Basic user aboba
+
+
+### Test submit review
+
+POST localhost:3001/reviews/post
+Authorization: Basic user aboba
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "restaurantId": 0,
+  "review": "Oishii yummy",
+  "score": "GREAT",
+  "atmosphereScore": "GOOD",
+  "foodScore": "GREAT"
+}
+
+### Test get admin approve
+
+PUT localhost:3001/admin/approve/1
+Authorization: Basic tomihi test
+
+### Test get admin user
+
+POST localhost:3001/admin/restaurant/add
+Authorization: Basic tomihi test
+Content-Type: application/json
+
+{
+  "title": "Third rest",
+  "description": "There should be description"
+}
+
+
+### Test reviews by restaraunt
+
+GET localhost:3001/reviews/restaurant/0
+Authorization: Basic user aboba
+
+### Test reviews by user
+
+GET localhost:3001/reviews/user/0
+Authorization: Basic user aboba
+
+### Test reviews by user
+
+GET localhost:3001/reviews/user/1
+Authorization: Basic user aboba
